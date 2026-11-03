@@ -630,59 +630,6 @@ const BOOK=[
  ]}]}
 ];
 
-/* ===== سجل التحرير ===== */
-const FIXES={ /* المفتاح: رمز القسم + الرقم الأصلي */
- "أ3":["فذلك مالم تفصح","فذلك ما لم تفصح"],
- "أ6":["..اليمكنها العودة","... لا يمكنها العودة"],
- "أ9":["؛ كي لايصل شيء","؛ كي لا يصل شيء"],
- "ت4":["#كبرت_وتعلمت_أن الطرح","#كبرت_وتعلمت أن الطرح"],
- "ت13":["(ساذجا) و لا (غرّا)","(ساذجا) ولا (غِرّا)"],
- "ت24":["ذاكرتنا مالم نحاول","ذاكرتنا ما لم نحاول"],
- "ت31":["لاتنس يومك","لا تنسَ يومك"],
- "ت103":["كلما ازدادت ح ارة أشواقنا","كلما ازدادت حرارة أشواقنا"],
- "ت134":["حتى اعتد ل في جلسته","حتى اعتدل في جلسته"],
- "ت146":["إلى (سلطة) (وقيد)","إلى (سلطة) و(قيد)"],
- "ت159":["كيف تعرّف (الأقارب)؟ / i. في (الواقع)...","كيف تعرّف (الأقارب)؟ / في (الواقع)... (حذف الترقيم الفرعي)"],
- "ت175":["يريدونك وفقك الصيغة","يريدونك وفق الصيغة"],
- "ت246":["#تعلمت_سنه_1437","#تعلمت_سنة_1437 (ومثله 247–249)"],
- "ت257":["لاترم رأيك وتذهب الرأي مثل البذرة","لا ترم رأيك وتذهب؛ الرأي مثل البذرة"],
- "ت350":["ومع الآخربن","ومع الآخرين"],
- "ت371":["أحينا، نسمع","أحيانًا، نسمع"],
- "ت374":["والصواب اتلمطلق","والصواب المطلق"],
- "ت379":["i. وعليه... / b. ويبدو...","حذف الترقيم الفرعي ودمج الأجزاء الثلاثة في نص واحد"],
- "ت380":["246- الفرق بين","الفرق بين (حذف رقم دخيل)"],
- "ت64":["التي منحنا وأهدرناه","التي منحنا إياها وأهدرناها (بقرار المؤلف)"],
- "ت230":["...وحدهم الذين أخلصوا للشعر أخلص","...أخلص لهم. (تتمة من المؤلف)"],
- "ت231":["...الآخرون يتحركون","...الآخرون يتحركون وفق إمكاناتهم وظروفهم وقناعاتهم لا وفق توقعاتنا نحن! (تتمة من المؤلف)"],
- "ت276":["على حين لا يشمها","على حين لا يشمها أصحابها. (تتمة من المؤلف)"],
- "ت358":["أصدقاؤنا الذين يتقبلوننا","أصدقاؤنا الذين يتقبلوننا كما نحن. (تتمة من المؤلف)"],
- "ش5":["ياحرفها المغموس في شفة الرحيلْ )","يا حرفها المغموس في شَفَةِ الرحيلْ (حذف قوس زائد)"]
-};
-const DUPES=[
- ["ت7","مكرر حرفيًا للنص ت6"],["ت38","مكرر حرفيًا للنص ت20"],["ت47","مكرر للنص ت46 دون القوسين"],
- ["ت55","صيغة أقصر من ت56، فأبقيت الأتم"],["ت165","مكرر للنص ت136"],["ت166","مكرر للنص ت138"],
- ["ت167","مكرر للنص ت139 وفيه نقص"],["ت270","مكرر للنص ت206"],["ت311","مكرر للنص ت153"],
- ["ت319","مكرر للنص ت74"],["ت324","مكرر للنص ت323"],["ت325","مكرر للنص ت152"],
- ["ت352","مكرر للنص ت145"],["ت359–360","النص ت105 مقسومًا على رقمين"],["ت213، ت306","رقمان بلا نص في الأصل"],
- ["ت289","قريب من ت137، حذفه المؤلف"],["ت333","قريب من ت75، حذفه المؤلف"],["ت318","نص مبتور، حذفه المؤلف"]
-];
-const ASK=[
- ["عناوين الفصول","اعتمد المؤلف تقسيم «تأملات ونصوص عابرة» إلى ثمانية فصول بعناوينها."],
- ["النصوص المتقاربة","حُذف ت289 لقربه من ت137، وت333 لقربه من ت75."],
- ["النصوص الناقصة","أكمل المؤلف ت230 وت231 وت276 وت358، وصحّح ت64، وحذف ت318."]
-];
-const ASK_OLD=[
- ["ت230","ينتهي بـ«أخلص» بلا متعلَّق: هل المقصود «أخلص لهم»؟"],
- ["ت231","ينتهي بـ«الآخرون يتحركون»: هل سقطت تتمة؟"],
- ["ت276","«على حين لا يشمها» بلا فاعل: هل سقطت كلمة مثل «صاحبها»؟"],
- ["ت318","النص مبتور عند «ويجرونك إلى»."],
- ["ت358","ينتهي بـ«أصدقاؤنا الذين يتقبلوننا»: هل سقط «كما نحن»؟"],
- ["ت64","«الحب التي منحنا وأهدرناه»: هل الأصوب «منحناها وأهدرناها» عودًا على «شذرات»؟"],
- ["ت137 وت289","نصان متقاربان (منزهين/معصومين)، أبقيتهما معًا. هل تحذف أحدهما؟"],
- ["ت75 وت333","نصان متقاربان (القفز/السير)، أبقيتهما معًا. هل تحذف أحدهما؟"],
- ["عناوين الفصول","قسمت «تأملات ونصوص عابرة» إلى ثمانية فصول، وعناوينها من اقتراحي. هل تعتمدها أو تغيرها؟"]
-];
-
 /* ===== أدوات ===== */
 const AR="٠١٢٣٤٥٦٧٨٩"; const ar=n=>String(n).replace(/\d/g,d=>AR[d]);
 const nn=n=>n===1?"نص واحد":n===2?"نصان":(n%100>=3&&n%100<=10)?ar(n)+" نصوص":n%100===0?ar(n)+" نص":ar(n)+" نصًا";
@@ -704,12 +651,11 @@ const ICO={
 };
 
 function itemHTML(x,showFrom){
-  const on=saved.has(x.key), fix=FIXES[x.key];
+  const on=saved.has(x.key), fix=null;
   return `<article class="item${x.ch.verse?" verse":""}" id="i-${x.ch.id}-${x.o}">
    <div class="num">${ar(x.seq)}</div>
    <div class="body"><p class="txt">${fmt(x.t)}</p>
-    <div class="meta"><span>في المخطوطة: ${x.ch.sec} ${ar(x.o)}</span>
-     <button class="icon${on?" on":""}" type="button" data-save="${x.key}" aria-pressed="${on}">${on?ICO.leafOn:ICO.leaf}<span>${on?"محفوظة":"احفظ"}</span></button>
+    <div class="meta">     <button class="icon${on?" on":""}" type="button" data-save="${x.key}" aria-pressed="${on}">${on?ICO.leafOn:ICO.leaf}<span>${on?"محفوظة":"احفظ"}</span></button>
      <button class="icon" type="button" data-copy="${x.key}">${ICO.copy}<span>نسخ</span></button>
      ${fix?`<button class="chip" type="button" data-fix="${x.key}" aria-expanded="false">حُرِّر</button>`:""}
      ${showFrom?`<span class="from">من فصل <a href="#i-${x.ch.id}-${x.o}">${x.ch.title}</a></span>`:""}
@@ -733,17 +679,16 @@ function cover(){
    <div class="note"><h2>توضيح</h2>
     <p>هذا الكتيب هو في أصله تغريدات ممتدة على ما يقرب من عشر سنوات، وأضفت إليها نصوصًا سردية أقدم، تعود إلى حوالي عشرين عامًا، وهي محسوبة على أصابع اليد الواحدة.</p>
     <p class="sig">عبدالرحمن البارقي، ٢٩ مايو ٢٠٢٣</p></div>
-   <div class="actions"><a class="btn primary" href="#read">${st.get("anchor",null)||st.get("last",null)?"تابع القراءة":"افتح الكتاب"}</a><a class="btn" href="#contents">الفهرس</a><a class="btn" href="#edits">سجل التحرير</a></div>
+   <div class="actions"><a class="btn primary" href="#read">${st.get("anchor",null)||st.get("last",null)?"تابع القراءة":"افتح الكتاب"}</a><a class="btn" href="#contents">الفهرس</a></div>
    <p class="rights">الحقوق غير محفوظة لأغراض التداول والنشر</p>
   </section>`;
   view.querySelectorAll(".cover svg,.cover h1").forEach(el=>{el.style.cursor="pointer";el.onclick=()=>{curHash="read";try{history.pushState(null,"","#read")}catch(_){}route()}});
 }
 
 function contents(){
-  let h=`<p class="eyebrow">الفهرس</p><h1 class="h1">محتويات الكتاب</h1><p class="lede">${ar(total)} نصًا في ثلاثة أقسام، ثم ملحق يعرض ما غيّره التحرير.</p>`;
+  let h=`<p class="eyebrow">الفهرس</p><h1 class="h1">محتويات الكتاب</h1>`;
   BOOK.forEach(p=>{h+=`<section class="part"><h2>${p.part}</h2><ul class="toc">`+
-    p.chapters.map(c=>`<li><a href="#${c.id}"><span>${c.title}</span><span class="cnt">${nn(c.items.length)}</span></a></li>`).join("")+`</ul></section>`});
-  h+=`<section class="part"><h2>ملحق</h2><ul class="toc"><li><a href="#edits"><span>سجل التحرير</span><span class="cnt">التصحيحات والمحذوف والمسائل المعلقة</span></a></li></ul></section>`;
+    p.chapters.map(c=>`<li><a href="#${c.id}"><span>${c.title}</span></a></li>`).join("")+`</ul></section>`});
   view.innerHTML=`<div class="fade">${h}</div>`;
 }
 
@@ -752,17 +697,17 @@ function chapter(c){
   const i=CH.indexOf(c), prev=CH[i-1], next=CH[i+1];
   const items=ALL.filter(x=>x.ch===c);
   view.innerHTML=`<div class="fade"><p class="eyebrow">${c.part}</p><h1 class="h1">${c.title}</h1>
-   <p class="lede">${nn(c.items.length)} · من ${c.sec} ${ar(c.items[0][0])} إلى ${c.sec} ${ar(c.items[c.items.length-1][0])} في المخطوطة</p>
+   <p class="lede">${nn(c.items.length)}</p>
    <div class="items">${items.map(x=>itemHTML(x)).join("")}</div>
    <nav class="pager">${prev?`<a href="#${prev.id}"><small>الفصل السابق</small><span>${prev.title}</span></a>`:"<span></span>"}
-   ${next?`<a class="next" href="#${next.id}"><small>الفصل التالي</small><span>${next.title}</span></a>`:`<a class="next" href="#edits"><small>ملحق</small><span>سجل التحرير</span></a>`}</nav>
+   ${next?`<a class="next" href="#${next.id}"><small>الفصل التالي</small><span>${next.title}</span></a>`:`<a class="next" href="#contents"><small>العودة إلى</small><span>الفهرس</span></a>`}</nav>
    ${next?"":`<p class="lede" style="text-align:center;margin-top:28px">انتهى، وشكرًا لطيب القراءة</p>`}</div>`;
 }
 
 function random(){
   const x=ALL[Math.floor(Math.random()*total)];
   view.innerHTML=`<div class="fade"><p class="eyebrow">ورقة عشوائية</p><h1 class="h1">من شجرة الكتاب</h1>
-   <div class="leafcard"><p class="txt">${fmt(x.t)}</p><p class="src">${x.ch.part} · ${x.ch.title} · ${x.ch.sec} ${ar(x.o)}</p></div>
+   <div class="leafcard"><p class="txt">${fmt(x.t)}</p><p class="src">${x.ch.part} · ${x.ch.title}</p></div>
    <div class="actions" style="margin-top:16px"><button class="btn primary" type="button" id="again">ورقة أخرى</button>
    <button class="btn" type="button" data-save="${x.key}">${saved.has(x.key)?"محفوظة":"احفظها"}</button>
    <a class="btn" href="#i-${x.ch.id}-${x.o}">افتحها في الكتاب</a></div></div>`;
@@ -790,28 +735,6 @@ function savedView(){
   view.innerHTML=`<div class="fade"><p class="eyebrow">المحفوظات</p><h1 class="h1">أوراقك المحفوظة</h1>
    ${xs.length?`<p class="lede">${nn(xs.length)}. تُحفظ في هذا المتصفح وحده.</p><div class="items">${xs.map(x=>itemHTML(x,true)).join("")}</div>`
    :`<p class="empty">لم تحفظ شيئًا بعد.<br>اضغط «احفظ» تحت أي نص ليظهر هنا.</p>`}</div>`;
-}
-
-function edits(){
-  const rows=Object.entries(FIXES).map(([k,v])=>{const x=ALL.find(a=>a.key===k);
-    return `<tr><td class="ref">${x?`<a href="#${x.ch.id}" style="color:inherit">${k[0]} ${ar(k.slice(1))}</a>`:k}</td><td>${esc(v[0])}</td><td>${esc(v[1])}</td></tr>`}).join("");
-  view.innerHTML=`<div class="fade log"><p class="eyebrow">ملحق</p><h1 class="h1">سجل التحرير</h1>
-   <p class="lede">كل ما غيّرته في المخطوطة، ليراجعه المؤلف. الرمز «أ» لقسم الورقة والغصن، و«ت» لتأملات ونصوص عابرة، و«ش» لأشطر يتيمة، والرقم بعده هو رقم النص في المخطوطة.</p>
-   <h2>قواعد عامة طُبقت على النصوص كلها</h2><ul>
-    <li>فصل «لا» النافية والناهية عما بعدها: لايصل ← لا يصل، لاتنحني ← لا تنحني.</li>
-    <li>فصل «ما» عن «لم» و«دام» و«زال»: مالم ← ما لم، مادام ← ما دام، مازال ← ما زال.</li>
-    <li>حذف المسافة قبل علامات الترقيم، وتوحيد شَرطة الحوار.</li>
-    <li>إبقاء اختيارات المؤلف الأسلوبية كما هي: الأقواس حول الكلمات، وعلامات التعجب المتكررة، والتشكيل، والمد في «بهدوووء».</li>
-    <li>ترقيم جديد متصل داخل كل فصل، مع إظهار رقم النص في المخطوطة تحته.</li></ul>
-   <h2>التنظيم</h2>
-   <p>قسم «تأملات ونصوص عابرة» كان سلسلة واحدة من ٣٨٠ رقمًا. قسمتُه إلى ثمانية فصول عند المواضع التي يتغير فيها الموضوع في تسلسله الأصلي، دون تقديم نص على نص. والعناوين من اقتراحي، وأكثرها مأخوذ من عبارات المؤلف نفسه («على جناحي ذاكرة»، «باتجاه الذات»)، وقد اعتمدها المؤلف.</p>
-   <h2>تصحيحات خاصة</h2>
-   <div class="tbl"><table><thead><tr><th>النص</th><th>في الأصل</th><th>بعد التحرير</th></tr></thead><tbody>${rows}</tbody></table></div>
-   <h2>نصوص حُذفت</h2>
-   <div class="tbl"><table><thead><tr><th>النص</th><th>السبب</th></tr></thead><tbody>${DUPES.map(d=>`<tr><td class="ref">${d[0]}</td><td>${d[1]}</td></tr>`).join("")}</tbody></table></div>
-   <h2>مسائل حسمها المؤلف</h2>
-   <div class="ask"><ul>${ASK.map(a=>`<li><b>${a[0]}:</b> ${a[1]}</li>`).join("")}</ul></div>
-   <p class="lede" style="margin-top:16px">طُبّقت هذه القرارات في متن الكتاب في ٣ نوفمبر ٢٠٢٦.</p></div>`;
 }
 
 /* ===== القارئ بالصفحات ===== */
@@ -1079,7 +1002,7 @@ function route(){
       setTimeout(()=>{const el=document.getElementById(h);if(el)el.scrollIntoView({block:"center"})},0);return}
   }
   else if(h==="contents")contents(); else if(h==="random")random();
-  else if(h==="search")search(); else if(h==="saved")savedView(); else if(h==="edits")edits(); else cover();
+  else if(h==="search")search(); else if(h==="saved")savedView(); else cover();
   window.scrollTo(0,0);
 }
 window.addEventListener("hashchange",()=>{curHash=null;route()});
