@@ -736,7 +736,7 @@ function cover(){
    <div class="actions"><a class="btn primary" href="#read">${st.get("anchor",null)||st.get("last",null)?"تابع القراءة":"افتح الكتاب"}</a><a class="btn" href="#contents">الفهرس</a><a class="btn" href="#edits">سجل التحرير</a></div>
    <p class="rights">الحقوق غير محفوظة لأغراض التداول والنشر</p>
   </section>`;
-  view.querySelectorAll(".cover svg,.cover h1").forEach(el=>{el.style.cursor="pointer";el.onclick=()=>{location.hash="read"}});
+  view.querySelectorAll(".cover svg,.cover h1").forEach(el=>{el.style.cursor="pointer";el.onclick=()=>{curHash="read";try{history.pushState(null,"","#read")}catch(_){}route()}});
 }
 
 function contents(){
@@ -871,8 +871,9 @@ function reader(opts){
   if(opts.ch)target={ch:opts.ch};else if(opts.item)target={item:opts.item};
   else{const a=st.get("anchor",null);if(a)target={item:a}}
   layout(target);
-  try{history.replaceState(null,"","#read")}catch(e){}
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(R.on)layout({item:R.anchor})});
+  curHash="read";try{history.replaceState(null,"","#read")}catch(e){}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(!R.on)return;
+    const i=R.els.findIndex(e=>e.id===R.anchor);layout(i>=0&&R.itemPg[i]===R.page?{item:R.anchor}:null)});
 }
 function layout(target){
   const stage=$("stage"),clip=$("clip"),flow=$("flow");if(!stage)return;
@@ -1026,7 +1027,8 @@ function turn(d){
     const anims=[];
     L.parts.forEach((s,k)=>{anims.push(s.p.animate(kf(ANG[k],rev),opt));s.sh.animate(okf(SHADE[k],rev),opt);s.b.animate(backFade(rev),opt)});
     c.animate(okf([0,.5,.75,.35,0],rev),opt);
-    anims[0].onfinish=()=>{L.root.remove();c.remove();extra.forEach(e=>e.remove());R.anim=false};
+    let ended=false;const fin=()=>{if(ended)return;ended=true;L.root.remove();c.remove();extra.forEach(e=>e.remove());R.anim=false};
+    anims[0].onfinish=fin;setTimeout(fin,opt.duration+400);   /* احتياط إن لم يُعلن المتصفح انتهاء الحركة */
   };
   /* نمط بسيط ثنائي الأبعاد: الورقة تنزلق نحو الكعب وتتلاشى، لمن لا يعرض جهازه الحركة المجسّمة */
   if(motion==="simple"){
@@ -1035,9 +1037,11 @@ function turn(d){
     const away=[{transform:"translateX(0) scaleX(1)",opacity:1},{transform:`translateX(${Math.round(W*.35)}px) scaleX(.15)`,opacity:0}];
     let A,B;
     if(d>0){A=flat();setPage(n);stage.append(c,A);A.style.transformOrigin="right center";
-      c.animate([{opacity:.6},{opacity:0}],o2);A.animate(away,o2).onfinish=()=>{A.remove();c.remove();R.anim=false}}
+      c.animate([{opacity:.6},{opacity:0}],o2);let e1=false;const f1=()=>{if(e1)return;e1=true;A.remove();c.remove();R.anim=false};
+      A.animate(away,o2).onfinish=f1;setTimeout(f1,o2.duration+400)}
     else{A=flat();setPage(n);B=flat();stage.append(A,c,B);B.style.transformOrigin="right center";
-      c.animate([{opacity:0},{opacity:.6}],o2);B.animate([...away].reverse(),o2).onfinish=()=>{A.remove();B.remove();c.remove();R.anim=false}}
+      c.animate([{opacity:0},{opacity:.6}],o2);let e2=false;const f2=()=>{if(e2)return;e2=true;A.remove();B.remove();c.remove();R.anim=false};
+      B.animate([...away].reverse(),o2).onfinish=f2;setTimeout(f2,o2.duration+400)}
     return;
   }
   if(d>0){const L=leaf();setPage(n);run(L,false,[])}
@@ -1051,8 +1055,20 @@ document.addEventListener("keydown",e=>{
 });
 let rsz=null;window.addEventListener("resize",()=>{clearTimeout(rsz);rsz=setTimeout(()=>{if(R.on)layout({item:R.anchor})},200)});
 
+/* التنقل: لا نعتمد على أن يغيّر المتصفح عنوان الصفحة حين يُضغط الرابط،
+   فبعض العارضات (كتطبيقات الهاتف) تعترض الروابط؛ نوجّه الصفحة بأنفسنا */
+let curHash=null;
+document.addEventListener("click",e=>{
+  const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+  e.preventDefault();curHash=a.getAttribute("href").slice(1);
+  try{history.pushState(null,"","#"+curHash)}catch(_){}
+  route();
+},true);
+window.addEventListener("popstate",()=>{curHash=null;route()});
+/* إن وقع خطأ في جهاز القارئ يظهر نصه أسفل الصفحة ليسهل تشخيصه */
+window.addEventListener("error",e=>{try{const t=document.createElement("div");t.className="toast";t.style.maxWidth="90%";t.textContent="خطأ: "+(e.message||"غير معروف");document.body.appendChild(t);setTimeout(()=>t.remove(),8000)}catch(_){}});
 function route(){
-  const h=decodeURIComponent(location.hash.slice(1));
+  const h=decodeURIComponent(curHash!=null?curHash:location.hash.slice(1));
   R.on=false;view.classList.remove("rd");
   const c=CH.find(c=>c.id===h);
   if(c){mode==="book"?reader({ch:c.id}):chapter(c)}
@@ -1066,7 +1082,7 @@ function route(){
   else if(h==="search")search(); else if(h==="saved")savedView(); else if(h==="edits")edits(); else cover();
   window.scrollTo(0,0);
 }
-window.addEventListener("hashchange",route);
+window.addEventListener("hashchange",()=>{curHash=null;route()});
 
 function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1600)}
 document.addEventListener("click",e=>{
